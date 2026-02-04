@@ -1,0 +1,149 @@
+/
+├── index.html
+├── bg.jpg
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>xxxnerd77</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Moving background */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 120%;
+      height: 120%;
+      background: url('bg.jpg') no-repeat center center;
+      background-size: cover;
+      animation: moveBg 30s linear infinite;
+      z-index: -1;
+      filter: brightness(0.6);
+    }
+
+    @keyframes moveBg {
+      0% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(-50px, -30px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      padding: 40px 20px;
+    }
+
+    .sidebar h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 22px;
+      letter-spacing: 2px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .nav a:hover {
+      background: white;
+      color: black;
+    }
+
+    /* Main content */
+    .content {
+      margin-left: 220px;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .content h2 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .content p {
+      font-size: 18px;
+      opacity: 0.85;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="background"></div>
+
+  <div class="sidebar">
+    <h1>xxxnerd77</h1>
+    <nav class="nav">
+      <a href="#blog">Blog</a>
+      <a href="#photos">Photos</a>
+      <a href="#videos">Videos</a>
+    </nav>
+  </div>
+
+  <div class="content">
+    <div>
+      <h2>Welcome</h2>
+      <p>Thoughts. Visuals. Motion.</p>
+    </div>
+  </div>
+
+</body>
+</html>
