@@ -40,6 +40,7 @@
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const msg = document.getElementById('message');
@@ -48,7 +49,17 @@
             const user = users.find(u => u.username === username && u.password === password);
 
             if (user) {
+                // Show success message
                 msg.innerHTML = `<div class="message success">Login successful! Welcome, ${username}!</div>`;
+                
+                // Optional: Store current user for use on other pages
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect to home.html after a short delay so user sees the success message
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 1200);
+                
             } else {
                 msg.innerHTML = '<div class="message error">Invalid username or password!</div>';
             }
@@ -56,3 +67,4 @@
     </script>
 </body>
 </html>
+``
