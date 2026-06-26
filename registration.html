@@ -1,0 +1,164 @@
+**Here are two simple HTML pages** that implement what you asked for:
+
+- `register.html` — Registration form
+- `login.html` — Login page
+
+### How it works
+- Registration saves the username + password to the browser's **localStorage** (as a JSON array of users).  
+  This is the safest and simplest way for a pure frontend demo (real apps would use a server + database).
+- After successful registration, it automatically redirects to the login page.
+- Login verifies the credentials against the stored users.
+
+### Files created
+
+**1. `register.html`**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MyWebsite</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; }
+        h2 { text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .message { text-align: center; margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h2>Create Account</h2>
+    <form id="registerForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" required placeholder="Choose a username">
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="Create a password" minlength="6">
+        
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+        
+        <button type="submit">Register</button>
+    </form>
+    
+    <div id="message"></div>
+    
+    <p style="text-align: center; margin-top: 20px;">
+        Already have an account? <a href="login.html">Login here</a>
+    </p>
+
+    <script>
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users')) || [];
+        }
+        function saveUsers(users) {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const msg = document.getElementById('message');
+
+            if (password !== confirm) return msg.innerHTML = '<div class="message error">Passwords do not match!</div>';
+            if (password.length < 6) return msg.innerHTML = '<div class="message error">Password must be at least 6 characters.</div>';
+
+            let users = getUsers();
+            if (users.some(u => u.username === username)) {
+                return msg.innerHTML = '<div class="message error">Username already taken!</div>';
+            }
+
+            users.push({ username, password });
+            saveUsers(users);
+
+            msg.innerHTML = '<div class="message success">Registration successful! Redirecting...</div>';
+            setTimeout(() => window.location.href = 'login.html', 1500);
+        });
+    </script>
+</body>
+</html>
+```
+
+**2. `login.html`**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MyWebsite</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; }
+        h2 { text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .message { text-align: center; margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" required>
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+        
+        <button type="submit">Login</button>
+    </form>
+    
+    <div id="message"></div>
+    
+    <p style="text-align: center; margin-top: 20px;">
+        Don't have an account? <a href="register.html">Register here</a>
+    </p>
+
+    <script>
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users')) || [];
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const msg = document.getElementById('message');
+
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                msg.innerHTML = `<div class="message success">Login successful! Welcome, ${username}!</div>`;
+            } else {
+                msg.innerHTML = '<div class="message error">Invalid username or password!</div>';
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+### How to test it
+1. Save both files in the same folder.
+2. Open `register.html` in your browser.
+3. Register an account → it will redirect to login.
+4. Login with the same credentials.
+
+**Note**: This is a **frontend-only demo**. Passwords are stored in plain text in `localStorage` (not secure for production). In a real website you would:
+- Use a backend (Node.js, PHP, Python, etc.)
+- Hash passwords (bcrypt)
+- Store data in a real JSON file or database
+- Use sessions / JWT for authentication
+
+Would you like me to create a **Node.js + Express** version that actually writes to a `users.json` file on the server?
