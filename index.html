@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissident-1 | Truth fears no investigation!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+            background: #0a0a0a;
+            color: #ddd;
+            overflow-x: hidden;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: #111;
+            border-right: 2px solid #222;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            color: #00ff99;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn {
+            display: block;
+            width: 100%;
+            padding: 18px 25px;
+            background: #1a1a1a;
+            color: #ddd;
+            text-decoration: none;
+            font-size: 17px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .nav-btn:hover {
+            background: #222;
+            border-color: #00cc99;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .nav-btn.active {
+            background: #00cc99;
+            color: #111;
+            border-color: #00cc99;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 220px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 60px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+        }
+
+        .logo-container img {
+            max-width: 520px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+        }
+
+        .tagline {
+            font-size: 1.35rem;
+            color: #aaa;
+            margin-top: 15px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .welcome-text {
+            max-width: 620px;
+            margin: 40px auto 0;
+            font-size: 1.15rem;
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        /* Bottom Right Contact Button */
+        .contact-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a1a1a;
+            color: #00ccff;
+            padding: 14px 28px;
+            border: 2px solid #00ccff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .contact-btn:hover {
+            background: #00ccff;
+            color: #111;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            margin-left: 220px;
+            text-align: center;
+            padding: 25px;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #222;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            footer {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>NAVIGATION</h2>
+        
+        <a href="blog.html" class="nav-btn">📝 Blog</a>
+        <a href="gallery.html" class="nav-btn">🖼️ Gallery</a>
+        <a href="videos.html" class="nav-btn">🎥 Videos</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <div class="logo-container">
+            <img src="15414.jpg" alt="Dissident-1 Logo">
+        </div>
+
+        <p class="tagline">"Truth fears no investigation!"</p>
+
+        <div class="welcome-text">
+            <p>Welcome to <strong>Dissident-1</strong> — a space for independent thought, controversial discussions, 
+            and unfiltered perspectives. Here we challenge narratives, explore uncomfortable truths, 
+            and give voice to ideas that mainstream platforms often suppress.</p>
+            
+            <p style="margin-top: 25px;">Choose a section from the left panel to begin your journey.</p>
+        </div>
+
+    </div>
+
+    <!-- Bottom Right Contact Button -->
+    <a href="#contact" class="contact-btn" onclick="showContactModal()">Contact Us</a>
+
+    <!-- Simple Contact Modal -->
+    <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+         background: rgba(0,0,0,0.85); z-index: 300; align-items: center; justify-content: center;">
+        <div style="background: #1a1a1a; padding: 40px; border-radius: 12px; max-width: 420px; width: 90%; border: 1px solid #333;">
+            <h2 style="color: #00ff99; margin-bottom: 20px;">Get In Touch</h2>
+            <p style="margin-bottom: 25px; color: #aaa;">Have a story, tip, or want to contribute? Reach out.</p>
+            
+            <form>
+                <input type="text" placeholder="Your Name" style="width: 100%; padding: 12px; margin-bottom: 15px; background: #111; border: 1px solid #444; color: #ddd; border-radius: 6px;">
+                <input type="email" placeholder="Your Email" style="width: 100%; padding: 12px; margin-bottom: 15px; background: #111; border: 1px solid #444; color: #ddd; border-radius: 6px;">
+                <textarea placeholder="Your message..." rows="5" style="width: 100%; padding: 12px; background: #111; border: 1px solid #444; color: #ddd; border-radius: 6px; resize: vertical;"></textarea>
+                
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button type="button" onclick="hideContactModal()" 
+                            style="flex: 1; padding: 12px; background: #333; color: #ddd; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit" 
+                            style="flex: 1; padding: 12px; background: #00cc99; color: #111; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Dissident-1 • Independent Media &amp; Discourse Platform
+    </footer>
+
+    <script>
+        function showContactModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+        
+        function hideContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('contactModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideContactModal();
+            }
+        });
+        
+        // Keyboard escape to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                document.getElementById('contactModal').style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
